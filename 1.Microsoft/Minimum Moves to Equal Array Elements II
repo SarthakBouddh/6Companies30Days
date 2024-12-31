@@ -1,0 +1,25 @@
+class Solution {
+    public int minMoves2(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+
+        int median = 0;
+        int mid = n/2;
+        if(n%2 == 0){
+           median = (nums[mid] + nums[mid-1])/2;
+        }else{
+            median = nums[mid];
+        }
+        
+        int index = 0;
+        int sum = 0;
+
+        while(index < nums.length){
+            int diff = Math.abs(nums[index] - median);
+            sum += diff;
+            index++;
+        }
+
+        return sum;
+    }
+}
