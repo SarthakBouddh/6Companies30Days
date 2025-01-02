@@ -1,0 +1,66 @@
+import java.util.*;
+
+class Solution {
+    private int[][] rects;
+    private List<Integer> prefixSums;
+    private int totalPoints;
+
+    public Solution(int[][] rects) {
+        this.rects = rects;
+        this.prefixSums = new ArrayList<>();
+        this.totalPoints = 0;
+
+        // Compute prefix sums of points in rectangles
+        for (int[] rect : rects) {
+            int points = (rect[2] - rect[0] + 1) * (rect[3] - rect[1] + 1);
+            totalPoints += points;
+            prefixSums.add(totalPoints);
+        }
+    }
+
+    public int[] pick() {
+        // Generate a random number in the range [0, totalPoints - 1]
+        int randPoint = (int) (Math.random() * totalPoints);
+
+        // Binary search to find the rectangle containing this point
+        int rectIndex = binarySearch(randPoint);
+
+        // Get the selected rectangle
+        int[] rect = rects[rectIndex];
+
+        // Find the relative position of the point within the rectangle
+        int width = rect[2] - rect[0] + 1;
+        int height = rect[3] - rect[1] + 1;
+        int totalInRect = width * height;
+        int prevSum = rectIndex > 0 ? prefixSums.get(rectIndex - 1) : 0;
+        int offset = randPoint - prevSum;
+
+        // Calculate the (x, y) coordinates
+        int x = rect[0] + offset % width;
+        int y = rect[1] + offset / width;
+
+        return new int[]{x, y};
+    }
+
+    private int binarySearch(int target) {
+        int left = 0;
+        int right = prefixSums.size() - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (prefixSums.get(mid) <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(rects);
+ * int[] param_1 = obj.pick();
+ */
