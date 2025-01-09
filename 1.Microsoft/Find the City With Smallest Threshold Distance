@@ -1,0 +1,53 @@
+class Solution {
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        long[][] dp = new long[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    dp[i][j] = 0L;
+                } else {
+                    dp[i][j] = Long.MAX_VALUE / 2;
+                }
+            }
+        }
+
+        for (int[] it : edges) {
+            int u = it[0];
+            int v = it[1];
+            int wt = it[2];
+
+            dp[u][v] = wt;
+            dp[v][u] = wt;
+        }
+
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    long newWt = dp[i][k] + dp[k][j];
+                    if (newWt < dp[i][j]) {
+                        dp[i][j] = newWt;
+                    }
+                }
+            }
+        }
+
+        int maxReach = Integer.MAX_VALUE;
+        int result = -1;
+
+        for (int i = 0; i < n; i++) {
+            int reachable = 0;
+            for (int j = 0; j < n; j++) {
+                if (dp[i][j] <= distanceThreshold) {
+                    reachable++;
+                }
+            }
+
+            if (reachable <= maxReach) {
+                result = i;
+                maxReach = reachable;
+            }
+        }
+
+        return result;
+    }
+}
