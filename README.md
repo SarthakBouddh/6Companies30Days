@@ -24,4 +24,5 @@ You need to start the challenge by putting in a post on LinkedIn , Instagram, Tw
 
 GOAL: To Solve 90 Question in 30 days
 
-Day 1 - 5: Microsoft
+Day 1 - 5: Microsoft (15/15)
+Day 6 - 10: Amazon (15/15)
