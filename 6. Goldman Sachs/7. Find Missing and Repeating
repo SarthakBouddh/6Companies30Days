@@ -1,0 +1,31 @@
+class Solution {
+    // Function to find two elements in array
+    ArrayList<Integer> findTwoElement(int arr[]) {
+        // code here
+        ArrayList<Integer> list = new ArrayList<>();
+        int num = 1;
+        int missing = 0;
+        if(arr[0] != num){
+            missing = num;
+            num++;
+        }
+        
+        int left = 0;
+        int right = 1;
+        while(right < arr.length){
+            if(arr[right] != num){
+                missing = num;
+            }
+            
+            if(arr[left] == arr[right]){
+                list.add(arr[left]);
+            }
+            left++;
+            right++;
+        }
+        
+        list.add(missing);
+        
+        return list;
+    }
+}
