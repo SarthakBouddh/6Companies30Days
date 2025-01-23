@@ -1,0 +1,23 @@
+class Solution {
+    public static String encode(String s) {
+        // code here
+        StringBuilder sb = new StringBuilder();
+        char curr = s.charAt(0);
+        int right = 0;
+        int freq = 0;
+        
+        while(right < s.length()){
+            if(curr == s.charAt(right)){
+                freq++;
+                right++;
+            }else{
+                sb.append(curr + "" + freq);
+                curr = s.charAt(right);
+                freq = 0;
+            }
+        }
+        
+        sb.append(curr + "" + freq);
+        return sb.toString();
+    }
+}
