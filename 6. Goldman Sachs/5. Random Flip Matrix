@@ -1,0 +1,36 @@
+class Solution {
+    
+    HashMap<Integer , Integer> set;
+    int row;
+    int col;
+    Random rand;
+    int total;
+    public Solution(int m, int n) {
+        set = new HashMap<>();
+        row = m;
+        col = n;
+        total = m*n;
+        rand = new Random();
+   }
+    
+    public int[] flip() {
+        int r = rand.nextInt(total--);
+        int index = set.getOrDefault(r , r);
+
+        set.put(r , set.getOrDefault(total , total));
+
+        return new int[]{index / col , index%col};
+    }
+    
+    public void reset() {
+        total = row*col;
+        set.clear();
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(m, n);
+ * int[] param_1 = obj.flip();
+ * obj.reset();
+ */
