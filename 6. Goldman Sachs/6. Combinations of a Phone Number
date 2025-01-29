@@ -1,0 +1,36 @@
+class Solution {
+    private static final String[] KEYPAD = {
+        "",     // 0
+        "",     // 1
+        "abc",  // 2
+        "def",  // 3
+        "ghi",  // 4
+        "jkl",  // 5
+        "mno",  // 6
+        "pqrs", // 7
+        "tuv",  // 8
+        "wxyz"  // 9
+    };
+    public List<String> letterCombinations(String digits) {
+        if(digits.length() == 0){
+            return new ArrayList<>();
+        }
+        List<String> list = new ArrayList<>();
+        backTracking(list , new StringBuilder() , digits , 0);
+        return list;
+    }
+    public void backTracking(List<String> list , StringBuilder s ,String t , int index){
+        if(index == t.length()){
+            list.add(s.toString());
+            return;
+        }
+
+        int num = t.charAt(index) - '0';
+        String letter = KEYPAD[num];
+        for(char ch : letter.toCharArray()){
+            s.append(ch);
+            backTracking(list , s , t , index+1);
+            s.deleteCharAt(s.length()-1);
+        }
+    }
+}
